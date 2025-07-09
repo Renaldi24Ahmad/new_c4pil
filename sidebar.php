@@ -55,7 +55,7 @@ $data_level = $_SESSION["role"];
           <div class="user-info">
             <span class="user-name"><?php echo $nama_lengkap ?>
             </span>
-            <span class="user-role">Administrator</span>
+            <span class="user-role"><?php echo $role ?></span>
             <span class="user-status">
               <i class="fa fa-circle"></i>
               <span>Online</span>
@@ -145,7 +145,19 @@ $data_level = $_SESSION["role"];
               <li>
                 <a href="riwayat.php">
                   <i class="fas fa-tv"></i>
-                  <span>Riwayat Pengambilan</span>
+                  <span>Permohonan Pengambilan</span>
+                </a>
+              </li>
+              <li>
+                <a href="kepuasan.php">
+                  <i class="fas fa-tv"></i>
+                  <span>Kepuasan Masyarakat</span>
+                </a>
+              </li>
+              <li>
+                <a href="masyarakat.php">
+                  <i class="fas fa-tv"></i>
+                  <span>Masyarakat</span>
                 </a>
               </li>
               <li>
@@ -224,7 +236,7 @@ $data_level = $_SESSION["role"];
 
                         <i class="fas fa-calendar-alt"></i>
 
-                        <span>Riwayat Pengambilan</span>
+                        <span>Permohonan Pengambilan</span>
 
                       </a>
 
@@ -337,7 +349,7 @@ $data_level = $_SESSION["role"];
               <li>
                 <a href="riwayat.php">
                   <i class="fas fa-tv"></i>
-                  <span>Riwayat Pengambilan</span>
+                  <span>Permohonan Pengambilan</span>
                 </a>
               </li>
               <!-- <li>
@@ -442,7 +454,7 @@ $data_level = $_SESSION["role"];
               <li>
                 <a href="riwayat_kabid.php">
                   <i class="fas fa-tv"></i>
-                  <span>Riwayat Pengambilan</span>
+                  <span>Permohonan Pengambilan</span>
                 </a>
               </li>
               <!-- <li>
@@ -527,7 +539,7 @@ $data_level = $_SESSION["role"];
 
                         <i class="fas fa-calendar-alt"></i>
 
-                        <span>Riwayat Pengambilan</span>
+                        <span>Permohonan Pengambilan</span>
 
                       </a>
 
@@ -553,8 +565,37 @@ $data_level = $_SESSION["role"];
             </ul>
           </div>
         <?php
+        } elseif ($data_level == "Masyarakat") {
+        ?>
+          <div class="sidebar-menu">
+            <ul>
+              <li class="header-menu">
+                <span>Dashboard</span>
+              </li>
+              <li>
+                <a href="t_ulasan_m.php">
+                  <i class="fas fa-tv"></i>
+                  <span>Ulasan Pelayanan</span>
+                </a>
+              </li>
+              <li>
+                <a href="pengaturan.php">
+                  <i class="fa fa-cog"></i>
+                  <span>Pengaturan</span>
+                </a>
+              </li>
+              <li>
+                <a href="#Exit" data-toggle="modal">
+                  <i class="fa fa-power-off"></i>
+                  <span>Keluar</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        <?php
         }
         ?>
+
         <!-- sidebar-menu  -->
       </div>
       <div class="sidebar-footer">

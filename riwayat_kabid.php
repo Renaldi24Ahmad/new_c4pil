@@ -4,8 +4,8 @@ include 'config.php'; // Koneksi ke database
 ?>
 
 <h1 class="h3 mb-0">
-  Riwayat Pengambilan Akta
-  <!-- <button class="btn btn-primary btn-sm border-0 float-right" type="button" data-toggle="modal" data-target="#Tambah-Riwayat">Tambah Riwayat</button> -->
+  Permohonan Pengambilan Akta
+  <button class="btn btn-primary btn-sm border-0 float-right" type="button" data-toggle="modal" data-target="#Tambah-Riwayat">Tambah Riwayat</button>
   <!-- <button class="btn btn-primary btn-sm border-0 float-right mr-3" type="button" onclick="location.href='laporan-riwayat.php';">CETAK</button> -->
 </h1>
 <hr>
@@ -17,16 +17,16 @@ include 'config.php'; // Koneksi ke database
       <th>Nomor Akta</th>
       <th>Nama Pemilik</th>
       <th>Nama Pemohon</th>
-      <th>Waktu Pengambilan</th>
+      <th>Status</th>
       <th>Modif By</th>
-      <!-- <th>Opsi</th> -->
+      <th>Opsi</th>
     </tr>
   </thead>
   <tbody>
     <?php
     $no = 1;
     $data_riwayat = mysqli_query($conn, "
-      SELECT rp.id_riwayat, rp.nomor_akta, rp.id_pemohon, rp.waktu_pengambilan, u.username, 
+      SELECT rp.id_riwayat, rp.nomor_akta, rp.id_pemohon, rp.status, u.username, 
 
              COALESCE(a.nama_pemilik, b.nama_pemilik, c.nama_pemilik, d.nama_pemilik) AS nama_pemilik,
 
@@ -56,92 +56,132 @@ include 'config.php'; // Koneksi ke database
         <td><?php echo $d['nomor_akta']; ?></td>
         <td><?php echo $d['nama_pemilik']; ?></td>
         <td><?php echo $d['nama_pemohon']; ?></td>
-        <td><?php echo $d['waktu_pengambilan']; ?></td>
+        <td>
+          <!-- <?php echo $d['status']; ?> -->
+          <button type="button" class="btn btn-primary btn-xs mr-1" data-toggle="modal" data-target="#EditStatus<?php echo $d['id_riwayat']; ?>">
+            <i class="fas fa-pencil-alt fa-xs mr-1"></i><?php echo $d['status']; ?>
+          </button>
+        </td>
         <td><?php echo $d['username']; ?></td>
         <td>
-          <!-- <button type="button" class="btn btn-primary btn-xs mr-1" data-toggle="modal" data-target="#EditRiwayat<?php echo $d['id_riwayat']; ?>">
+          <button type="button" class="btn btn-primary btn-xs mr-1" data-toggle="modal" data-target="#EditRiwayat<?php echo $d['id_riwayat']; ?>">
             <i class="fas fa-pencil-alt fa-xs mr-1"></i>Edit
           </button>
           <a class="btn btn-danger btn-xs" href="?hapus=<?php echo $d['id_riwayat']; ?>" onclick="return confirm('Yakin ingin menghapus?')">
-            <i class=" fas fa-trash-alt fa-xs mr-1"></i>Hapus</a> -->
+            <i class=" fas fa-trash-alt fa-xs mr-1"></i>Hapus</a>
         </td>
       </tr>
 
       <!-- Modal Edit -->
-      <div class="modal fade" id="EditRiwayat<?php echo $d['id_riwayat']; ?>">
+      <div class="modal fade" id="EditStatus<?php echo $d['id_riwayat']; ?>">
         <div class="modal-dialog">
           <div class="modal-content">
             <form method="post">
               <div class="modal-header bg-purple">
-                <h5 class="modal-title text-white">Edit Riwayat</h5>
+                <h5 class="modal-title text-white">Edit Status</h5>
                 <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
               </div>
               <div class="modal-body">
                 <input type="hidden" name="id_riwayat" value="<?php echo $d['id_riwayat']; ?>">
 
                 <div class="form-group">
-                  <label>Nomor Akta:</label>
-                  <select name="Edit_Nomor_Akta" class="form-control" required>
-                    <?php
-                    // Ambil data dari tabel akta_b
-                    $data_akta_b = mysqli_query($conn, "SELECT nomor_akta, nama_pemilik FROM akta_b");
-                    while ($row = mysqli_fetch_array($data_akta_b)) {
-                      $selected = ($row['nomor_akta'] == $d['nomor_akta']) ? 'selected' : '';
-                      echo '<option value="' . $row['nomor_akta'] . '" ' . $selected . '>' . $row['nama_pemilik'] . ' - ' . $row['nomor_akta'] . ' (Akta B)</option>';
-                    }
-
-                    // Ambil data dari tabel akta_cu
-                    $data_akta_cu = mysqli_query($conn, "SELECT nomor_akta, nama_pemilik FROM akta_cu");
-                    while ($row = mysqli_fetch_array($data_akta_cu)) {
-                      $selected = ($row['nomor_akta'] == $d['nomor_akta']) ? 'selected' : '';
-                      echo '<option value="' . $row['nomor_akta'] . '" ' . $selected . '>' . $row['nama_pemilik'] . ' - ' . $row['nomor_akta'] . ' (Akta CU)</option>';
-                    }
-
-                    // Ambil data dari tabel akta_pn
-                    $data_akta_pn = mysqli_query($conn, "SELECT nomor_akta, nama_pemilik FROM akta_pn");
-                    while ($row = mysqli_fetch_array($data_akta_pn)) {
-                      $selected = ($row['nomor_akta'] == $d['nomor_akta']) ? 'selected' : '';
-                      echo '<option value="' . $row['nomor_akta'] . '" ' . $selected . '>' . $row['nama_pemilik'] . ' - ' . $row['nomor_akta'] . ' (Akta PN)</option>';
-                    }
-
-                    // Ambil data dari tabel akta_terbit
-                    $data_akta_terbit = mysqli_query($conn, "SELECT nomor_akta, nama_pemilik FROM akta_terbit");
-                    while ($row = mysqli_fetch_array($data_akta_terbit)) {
-                      $selected = ($row['nomor_akta'] == $d['nomor_akta']) ? 'selected' : '';
-                      echo '<option value="' . $row['nomor_akta'] . '" ' . $selected . '>' . $row['nama_pemilik'] . ' - ' . $row['nomor_akta'] . ' (Akta Terbit)</option>';
-                    }
-                    ?>
+                  <label>Status:</label>
+                  <select name="Edit_Status" class="form-control" required>
+                    <option value="Terverifikasi" <?php if ($d['status'] == 'Terverifikasi') echo 'selected'; ?>>Terverifikasi</option>
+                    <option value="DiTolak" <?php if ($d['status'] == 'DiTolak') echo 'selected'; ?>>DiTolak</option>
+                    <option value="Selesai" <?php if ($d['status'] == 'Selesai') echo 'selected'; ?>>Selesai</option>
                   </select>
-                </div>
-
-                <div class="form-group">
-                  <label>Nama Pemohon:</label>
-                  <select name="Edit_Id_Pemohon" class="form-control" required>
-                    <?php
-                    $data_pemohon = mysqli_query($conn, "SELECT * FROM pemohon");
-                    while ($rowss = mysqli_fetch_array($data_pemohon)) {
-                      $selected = ($rowss['id_pemohon'] == $d['id_pemohon']) ? 'selected' : '';
-                      echo '<option value="' . $rowss['id_pemohon'] . '" ' . $selected . '>' . $rowss['nama_pemohon'] . ' - ' . $rowss['id_pemohon'] . '</option>';
-                    }
-                    ?>
-                  </select>
-                </div>
-
-                <div class="form-group">
-                  <label>Waktu Pengambilan:</label>
-                  <input type="datetime-local" name="Edit_Waktu_Pengambilan" value="<?php echo date('Y-m-d\TH:i', strtotime($d['waktu_pengambilan'])); ?>" class="form-control" required>
                   <input type="hidden" name="Edit_id_username" value="<?php echo $ididid_user; ?>">
                 </div>
+
               </div>
               <div class="modal-footer">
-                <button type="submit" name="SimpanEditRiwayat" class="btn btn-primary">Simpan</button>
+                <button type="submit" name="SimpanEditStatus" class="btn btn-primary">Simpan</button>
               </div>
             </form>
           </div>
         </div>
       </div>
-    <?php } ?>
   </tbody>
+</table>
+
+<!-- Modal Edit -->
+<div class="modal fade" id="EditRiwayat<?php echo $d['id_riwayat']; ?>">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form method="post">
+        <div class="modal-header bg-purple">
+          <h5 class="modal-title text-white">Edit Riwayat</h5>
+          <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" name="id_riwayat" value="<?php echo $d['id_riwayat']; ?>">
+
+          <div class="form-group">
+            <label>Nomor Akta:</label>
+            <select name="Edit_Nomor_Akta" class="form-control" required>
+              <?php
+              // Ambil data dari tabel akta_b
+              $data_akta_b = mysqli_query($conn, "SELECT nomor_akta, nama_pemilik FROM akta_b");
+              while ($row = mysqli_fetch_array($data_akta_b)) {
+                $selected = ($row['nomor_akta'] == $d['nomor_akta']) ? 'selected' : '';
+                echo '<option value="' . $row['nomor_akta'] . '" ' . $selected . '>' . $row['nama_pemilik'] . ' - ' . $row['nomor_akta'] . ' (Akta B)</option>';
+              }
+
+              // Ambil data dari tabel akta_cu
+              $data_akta_cu = mysqli_query($conn, "SELECT nomor_akta, nama_pemilik FROM akta_cu");
+              while ($row = mysqli_fetch_array($data_akta_cu)) {
+                $selected = ($row['nomor_akta'] == $d['nomor_akta']) ? 'selected' : '';
+                echo '<option value="' . $row['nomor_akta'] . '" ' . $selected . '>' . $row['nama_pemilik'] . ' - ' . $row['nomor_akta'] . ' (Akta CU)</option>';
+              }
+
+              // Ambil data dari tabel akta_pn
+              $data_akta_pn = mysqli_query($conn, "SELECT nomor_akta, nama_pemilik FROM akta_pn");
+              while ($row = mysqli_fetch_array($data_akta_pn)) {
+                $selected = ($row['nomor_akta'] == $d['nomor_akta']) ? 'selected' : '';
+                echo '<option value="' . $row['nomor_akta'] . '" ' . $selected . '>' . $row['nama_pemilik'] . ' - ' . $row['nomor_akta'] . ' (Akta PN)</option>';
+              }
+
+              // Ambil data dari tabel akta_terbit
+              $data_akta_terbit = mysqli_query($conn, "SELECT nomor_akta, nama_pemilik FROM akta_terbit");
+              while ($row = mysqli_fetch_array($data_akta_terbit)) {
+                $selected = ($row['nomor_akta'] == $d['nomor_akta']) ? 'selected' : '';
+                echo '<option value="' . $row['nomor_akta'] . '" ' . $selected . '>' . $row['nama_pemilik'] . ' - ' . $row['nomor_akta'] . ' (Akta Terbit)</option>';
+              }
+              ?>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Nama Pemohon:</label>
+            <select name="Edit_Id_Pemohon" class="form-control" required>
+              <?php
+              $data_pemohon = mysqli_query($conn, "SELECT * FROM pemohon");
+              while ($rowss = mysqli_fetch_array($data_pemohon)) {
+                $selected = ($rowss['id_pemohon'] == $d['id_pemohon']) ? 'selected' : '';
+                echo '<option value="' . $rowss['id_pemohon'] . '" ' . $selected . '>' . $rowss['nama_pemohon'] . ' - ' . $rowss['id_pemohon'] . '</option>';
+              }
+              ?>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Status:</label>
+            <select name="Edit_Status" class="form-control" required>
+              <option value="Terverifikasi">Terverifikasi</option>
+            </select>
+            <input type="hidden" name="Edit_id_username" value="<?php echo $ididid_user; ?>">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" name="SimpanEditRiwayat" class="btn btn-primary">Simpan</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<?php } ?>
+</tbody>
 </table>
 
 <!-- Modal Tambah Riwayat -->
@@ -196,8 +236,12 @@ include 'config.php'; // Koneksi ke database
             </select>
           </div>
           <div class="form-group">
-            <label>Waktu Pengambilan:</label>
-            <input type="datetime-local" name="Tambah_Waktu_Pengambilan" class="form-control" required>
+            <label>Status:</label>
+            <select name="Tambah_Status" class="form-control" required>
+              <option value="Terverifikasi">Terverifikasi</option>
+              <!-- <option value="Di Tolak">Di Tolak</option>
+              <option value="Selesai">Selesai</option> -->
+            </select>
             <input type="hidden" name="id_username" value="<?php echo $ididid_user ?>">
           </div>
         </div>
@@ -215,7 +259,7 @@ include 'config.php'; // Koneksi ke database
 if (isset($_POST['TambahRiwayat'])) {
   $nomor_akta = htmlspecialchars($_POST['Tambah_Nomor_Akta']);
   $id_pemohon = htmlspecialchars($_POST['Tambah_Id_Pemohon']);
-  $waktu_pengambilan = htmlspecialchars($_POST['Tambah_Waktu_Pengambilan']);
+  $status = htmlspecialchars($_POST['Tambah_Status']);
   $idusername = htmlspecialchars($_POST['id_username']);
 
   // Cek apakah nomor akta sudah ada di riwayat
@@ -223,7 +267,7 @@ if (isset($_POST['TambahRiwayat'])) {
   if ($cek_riwayat > 0) {
     echo '<script>alert("Riwayat untuk nomor akta ini sudah ada.");history.go(-1);</script>';
   } else {
-    $query = "INSERT INTO riwayat_pengambilan (nomor_akta, id_pemohon, waktu_pengambilan, id_user) VALUES ('$nomor_akta', '$id_pemohon', '$waktu_pengambilan', '$idusername')";
+    $query = "INSERT INTO riwayat_pengambilan (nomor_akta, id_pemohon, status, id_user) VALUES ('$nomor_akta', '$id_pemohon', '$status', '$idusername')";
     $result = mysqli_query($conn, $query);
     if ($result) {
       echo '<script>history.go(-1);</script>';
@@ -234,18 +278,38 @@ if (isset($_POST['TambahRiwayat'])) {
 }
 
 // Backend Edit Data
+if (isset($_POST['SimpanEditStatus'])) {
+  $id_riwayat = $_POST['id_riwayat'];
+  $status = $_POST['Edit_Status'];
+  $id_user = $_POST['Edit_id_username'];
+
+  // Update query
+  $update_query = "UPDATE riwayat_pengambilan SET 
+        status = '$status', 
+        id_user = '$id_user' 
+        WHERE id_riwayat = $id_riwayat";
+
+  if (mysqli_query($conn, $update_query)) {
+    echo "<script>alert('Data riwayat berhasil diperbarui!');</script>";
+    echo "<script>window.location.href='riwayat.php';</script>"; // Ganti dengan halaman yang sesuai
+  } else {
+    echo "<script>alert('Error: " . mysqli_error($conn) . "');</script>";
+  }
+}
+
+// Backend Edit Data
 if (isset($_POST['SimpanEditRiwayat'])) {
   $id_riwayat = $_POST['id_riwayat'];
   $nomor_akta = $_POST['Edit_Nomor_Akta'];
   $id_pemohon = $_POST['Edit_Id_Pemohon'];
-  $waktu_pengambilan = $_POST['Edit_Waktu_Pengambilan'];
+  $status = $_POST['Edit_Status'];
   $id_user = $_POST['Edit_id_username'];
 
   // Update query
   $update_query = "UPDATE riwayat_pengambilan SET 
         nomor_akta = '$nomor_akta', 
         id_pemohon = '$id_pemohon', 
-        waktu_pengambilan = '$waktu_pengambilan', 
+        status = '$status', 
         id_user = '$id_user' 
         WHERE id_riwayat = $id_riwayat";
 

@@ -60,6 +60,7 @@
                   <select name="Edit_Role" class="form-control" required>
                     <option value="Karyawan Pelayanan" <?php echo ($d['role'] == 'Karyawan Pelayanan') ? 'selected' : ''; ?>>Karyawan Pelayanan</option>
                     <option value="Kepala Bidang" <?php echo ($d['role'] == 'Kepala Bidang') ? 'selected' : ''; ?>>Kepala Bidang</option>
+                    <option value="Masyarakat" <?php echo ($d['role'] == 'Masyarakat') ? 'selected' : ''; ?>>Masyarakat</option>
                   </select>
                 </div>
               </div>
@@ -87,8 +88,8 @@ if (isset($_POST['TambahUser'])) {
   if ($cekuser > 0) {
     echo '<script>alert("Maaf! Username sudah ada");history.go(-1);</script>';
   } else {
-    $InputUser = mysqli_query($conn, "INSERT INTO user (username, password, nama_lengkap, role) 
-     VALUES ('$username', '$password', '$nama_lengkap', '$role')");
+    $InputUser = mysqli_query($conn, "INSERT INTO user (username, password, nama_lengkap, role, logo) 
+     VALUES ('$username', '$password', '$nama_lengkap', '$role', 'foto-profile.png')");
     if ($InputUser) {
       echo '<script>history.go(-1);</script>';
     } else {
@@ -153,6 +154,7 @@ if (!empty($_GET['hapus'])) {
               <option value="">-- Pilih --</option>
               <option value="Karyawan Pelayanan">Karyawan Pelayanan</option>
               <option value="Kepala Bidang">Kepala Bidang</option>
+              <option value="Masyarakat">Masyarakat</option>
             </select>
           </div>
         </div>

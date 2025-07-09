@@ -52,7 +52,7 @@ $tgl = date("d F Y");
         <th>Nomor Akta</th>
         <th>Nama Pemilik</th>
         <th>Nama Pemohon</th>
-        <th>Waktu Pengambilan</th>
+        <th>Status</th>
         <th>Modif By</th>
       </tr>
     </thead>
@@ -60,7 +60,7 @@ $tgl = date("d F Y");
       <?php
       $no = 1;
       $sql = $koneksi->query("
-      SELECT rp.id_riwayat, rp.nomor_akta, rp.id_pemohon, rp.waktu_pengambilan, u.username, 
+      SELECT rp.id_riwayat, rp.nomor_akta, rp.id_pemohon, rp.status, u.username, 
 
              COALESCE(a.nama_pemilik, b.nama_pemilik, c.nama_pemilik, d.nama_pemilik) AS nama_pemilik,
 
@@ -89,7 +89,7 @@ $tgl = date("d F Y");
           <td><?php echo $data['nomor_akta']; ?></td>
           <td><?php echo $data['nama_pemilik']; ?></td>
           <td><?php echo $data['nama_pemohon']; ?></td>
-          <td><?php echo $data['waktu_pengambilan']; ?></td>
+          <td><?php echo $data['status']; ?></td>
           <td><?php echo $data['username']; ?></td>
         </tr>
       <?php
