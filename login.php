@@ -8,17 +8,17 @@ if (isset($_SESSION['log'])) {
 };
 
 if (isset($_POST['login'])) {
-  $user = mysqli_real_escape_string($conn, $_POST['username']);
+  $nik = mysqli_real_escape_string($conn, $_POST['nik']);
   $pass = mysqli_real_escape_string($conn, $_POST['password']);
 
   // Query untuk mengambil data user berdasarkan username
-  $queryuser = mysqli_query($conn, "SELECT * FROM user WHERE username='$user'");
+  $queryuser = mysqli_query($conn, "SELECT * FROM user WHERE nik='$nik'");
   $cariuser = mysqli_fetch_assoc($queryuser);
 
   // Verifikasi password
   if ($cariuser && password_verify($pass, $cariuser['password'])) {
     $_SESSION['id_user'] = $cariuser['id_user'];
-    $_SESSION['username'] = $cariuser['username'];
+    $_SESSION['nik'] = $cariuser['nik'];
     $_SESSION['nama_lengkap'] = $cariuser['nama_lengkap'];
     $_SESSION['role'] = $cariuser['role'];
     $_SESSION['log'] = "login";
@@ -91,12 +91,12 @@ if (isset($_POST['login'])) {
   <form class="form-signin" method="POST">
     <img class="mb-4" src="assets/images/logo-capil-new.png" alt="Logo" width="150" height="150">
     <div class="form-group mb-2">
-      <label for="inputuser" class="sr-only">Username</label>
-      <input type="text" id="inputuser" name="username" class="form-control" placeholder="Username" required autofocus>
+      <label for="inputuser" class="sr-only">Nik</label>
+      <input type="text" id="inputuser" name="nik" class="form-control" placeholder="Masukan Nik..." required autofocus>
     </div>
     <div class="form-group mb-2">
       <label for="inputPassword" class="sr-only">Password</label>
-      <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required>
+      <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Masukan Password..." required>
     </div>
     <button class="btn btn-warning btn-block" name="login" type="submit">Sign in</button>
     <p class="mt-3 mb-3 text-white">&copy; Selamat Datang di Aplikasi Catatan Sipil - <a target="_blank" rel="noopener noreferrer" href="#" class="text-white">BANJARMASIN</a></p>

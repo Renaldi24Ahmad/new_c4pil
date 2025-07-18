@@ -13,7 +13,15 @@ if (isset($_POST['submit'])) {
     $rating = $_POST['rating'];
     $ulasan = $_POST['ulasan'];
 
-    mysqli_query($koneksi, "INSERT INTO kepuasan_pelayanan (nama_masyarakat, rating, ulasan) VALUES ('$nama', '$rating', '$ulasan')");
+    $query = mysqli_query($koneksi, "INSERT INTO kepuasan_pelayanan (nama_masyarakat, rating, ulasan) VALUES ('$nama', '$rating', '$ulasan')");
+
+    if ($query) {
+        // Jika berhasil, redirect ke kepuasan.php
+        echo '<script>history.go(-1);</script>';
+    } else {
+        // Jika gagal simpan, munculkan alert
+        echo '<script>alert("Gagal menyimpan data!");history.go(-1);</script>';
+    }
 }
 ?>
 

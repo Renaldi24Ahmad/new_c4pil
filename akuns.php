@@ -9,7 +9,7 @@
   <thead>
     <tr>
       <th>No</th>
-      <th>Username</th>
+      <th>Nik</th>
       <th>Nama Lengkap</th>
       <th>Role</th>
       <th>Opsi</th>
@@ -23,7 +23,7 @@
     ?>
       <tr>
         <td><?php echo $no++; ?></td>
-        <td><?php echo $d['username']; ?></td>
+        <td><?php echo $d['nik']; ?></td>
         <td><?php echo $d['nama_lengkap']; ?></td>
         <td><?php echo $d['role']; ?></td>
         <td>
@@ -47,9 +47,9 @@
               </div>
               <div class="modal-body">
                 <div class="form-group">
-                  <label class="small">Username:</label>
+                  <label class="small">Nik:</label>
                   <input type="hidden" name="iduser" value="<?php echo $d['id_user']; ?>">
-                  <input type="text" name="Edit_Username" value="<?php echo $d['username']; ?>" class="form-control" required>
+                  <input type="text" name="Edit_Username" value="<?php echo $d['nik']; ?>" class="form-control" required>
                 </div>
                 <div class="form-group">
                   <label class="small">Nama Lengkap:</label>
@@ -84,11 +84,11 @@ if (isset($_POST['TambahUser'])) {
   $nama_lengkap = htmlspecialchars($_POST['Tambah_Nama_Lengkap']);
   $role = htmlspecialchars($_POST['Tambah_Role']);
 
-  $cekuser = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM user WHERE username='$username'"));
+  $cekuser = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM user WHERE nik='$username'"));
   if ($cekuser > 0) {
-    echo '<script>alert("Maaf! Username sudah ada");history.go(-1);</script>';
+    echo '<script>alert("Maaf! Nik sudah ada");history.go(-1);</script>';
   } else {
-    $InputUser = mysqli_query($conn, "INSERT INTO user (username, password, nama_lengkap, role, logo) 
+    $InputUser = mysqli_query($conn, "INSERT INTO user (nik, password, nama_lengkap, role, logo) 
      VALUES ('$username', '$password', '$nama_lengkap', '$role', 'foto-profile.png')");
     if ($InputUser) {
       echo '<script>history.go(-1);</script>';
@@ -104,7 +104,7 @@ if (isset($_POST['SimpanEditUser'])) {
   $nama_lengkap = htmlspecialchars($_POST['Edit_Nama_Lengkap']);
   $role = htmlspecialchars($_POST['Edit_Role']);
 
-  $cekDataUpdate = mysqli_query($conn, "UPDATE user SET username='$username', nama_lengkap='$nama_lengkap', role='$role' WHERE id_user='$iduser'");
+  $cekDataUpdate = mysqli_query($conn, "UPDATE user SET nik='$username', nama_lengkap='$nama_lengkap', role='$role' WHERE id_user='$iduser'");
   if ($cekDataUpdate) {
     echo '<script>history.go(-1);</script>';
   } else {
@@ -136,7 +136,7 @@ if (!empty($_GET['hapus'])) {
         </div>
         <div class="modal-body">
           <div class="form-group">
-            <label class="small">Username:</label>
+            <label class="small">Nik:</label>
             <input type="text" name="Tambah_Username" class="form-control" required>
           </div>
           <div class="form-group">

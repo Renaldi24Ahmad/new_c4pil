@@ -1,27 +1,41 @@
 <?php
 include 'sidebar.php';
-include 'config.php';
 ?>
 
-<?php
-// koneksi database
-$koneksi = mysqli_connect("localhost", "root", "", "testing");
+<h1 class="h3 mb-0">
+    Data Ulasan Kepuasan
+    <button class="btn btn-primary btn-sm border-0 float-right" type="button" data-toggle="modal" data-target="#kepuasanModal">Tambah Ulasan</button>
+</h1>
+<hr>
 
-// proses simpan data kalau form disubmit
-if (isset($_POST['submit'])) {
-    $nama = $_POST['nama_masyarakat'];
-    $rating = $_POST['rating'];
-    $ulasan = $_POST['ulasan'];
-
-    mysqli_query($koneksi, "INSERT INTO kepuasan_pelayanan (nama_masyarakat, rating, ulasan) VALUES ('$nama', '$rating', '$ulasan')");
-}
-?>
-
-<!-- Tombol trigger modal -->
-<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#kepuasanModal">
-    Tambah Data
-</button>
-
+<table class="table table-striped table-sm table-bordered dt-responsive nowrap" id="table" width="100%">
+    <thead>
+        <tr>
+            <th>Nama</th>
+            <th>Rating</th>
+            <th>Ulasan</th>
+            <th>Tanggal</th>
+            <th>Opsi</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php
+        $data = mysqli_query($conn, "SELECT * FROM kepuasan_pelayanan ORDER BY tanggal DESC");
+        while ($d = mysqli_fetch_array($data)) {
+        ?>
+            <tr>
+                <td><?= htmlspecialchars($d['nama_masyarakat']) ?></td>
+                <td><?= str_repeat('⭐', $d['rating']); ?></td>
+                <td><?= htmlspecialchars($d['ulasan']) ?></td>
+                <td><?= $d['tanggal'] ?></td>
+                <td>
+                    <a class="btn btn-danger btn-xs" href="?hapus=<?php echo $d['id_kp']; ?>" onclick="return confirm('Yakin ingin menghapus?')">
+                        <i class=" fas fa-trash-alt fa-xs mr-1"></i>Hapus</a>
+                </td>
+            </tr>
+    </tbody>
+<?php } ?>
+</table>
 <!-- Modal -->
 <div class="modal fade" id="kepuasanModal" tabindex="-1" aria-labelledby="kepuasanModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm">
@@ -63,53 +77,27 @@ if (isset($_POST['submit'])) {
     </div>
 </div>
 
-<!-- Bootstrap 5 JS & CSS + Font Awesome (pastikan sudah di-include) -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-
-<!-- Bootstrap 5 & Font Awesome -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-
-
-
-<hr>
-
-<!-- Tampil Data -->
-<div class="container mt-4">
-    <h4>Data Kepuasan Pelayanan</h4>
-    <table class="table table-bordered">
-        <tr>
-            <th>Nama</th>
-            <th>Rating</th>
-            <th>Ulasan</th>
-            <th>Tanggal</th>
-            <th>Opsi</th>
-        </tr>
-
-        <?php
-        $data = mysqli_query($koneksi, "SELECT * FROM kepuasan_pelayanan ORDER BY tanggal DESC");
-        while ($d = mysqli_fetch_array($data)) {
-        ?>
-            <tr>
-                <td><?= htmlspecialchars($d['nama_masyarakat']) ?></td>
-                <td><?= str_repeat('⭐', $d['rating']); ?></td>
-                <td><?= htmlspecialchars($d['ulasan']) ?></td>
-                <td><?= $d['tanggal'] ?></td>
-                <td>
-                    <a class="btn btn-danger btn-xs" href="?hapus=<?php echo $d['id_kp']; ?>" onclick="return confirm('Yakin ingin menghapus?')">
-                        <i class=" fas fa-trash-alt fa-xs mr-1"></i>Hapus</a>
-                </td>
-            </tr>
-        <?php } ?>
-    </table>
-</div>
-
 <?php
+// koneksi database
+$koneksi = mysqli_connect("localhost", "root", "", "testing");
+
+// proses simpan data kalau form disubmit
+if (isset($_POST['submit'])) {
+    $nama = $_POST['nama_masyarakat'];
+    $rating = $_POST['rating'];
+    $ulasan = $_POST['ulasan'];
+
+    $query = mysqli_query($koneksi, "INSERT INTO kepuasan_pelayanan (nama_masyarakat, rating, ulasan) VALUES ('$nama', '$rating', '$ulasan')");
+
+    if ($query) {
+        // Jika berhasil, redirect ke kepuasan.php
+        echo '<script>history.go(-1);</script>';
+    } else {
+        // Jika gagal simpan, munculkan alert
+        echo '<script>alert("Gagal menyimpan data!");history.go(-1);</script>';
+    }
+}
+
 if (!empty($_GET['hapus'])) {
     $id_kp = $_GET['hapus'];
     $query = mysqli_query($conn, "DELETE FROM kepuasan_pelayanan WHERE id_kp='$id_kp'");
@@ -121,7 +109,7 @@ if (!empty($_GET['hapus'])) {
 }
 ?>
 
-<!-- CSS Rating -->
+<hr>
 <style>
     .rating input {
         display: none;

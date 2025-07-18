@@ -10,7 +10,7 @@ function ribuan($nilai)
 }
 $uid = $_SESSION['id_user'];
 $DataLogin = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM user WHERE id_user='$uid'"));
-$username = $DataLogin['username'];
+$username = $DataLogin['nik'];
 $ididid_user = $DataLogin['id_user'];
 $nama_lengkap = $DataLogin['nama_lengkap'];
 $role = $DataLogin['role'];
@@ -215,6 +215,28 @@ $data_level = $_SESSION["role"];
                         <i class="fas fa-calendar-alt"></i>
 
                         <span>Perubahan Akta (PN)</span>
+
+                      </a>
+
+                    </li>
+                    <li class="nav-item">
+
+                      <a class="nav-link" href="laporan-masyarakat.php">
+
+                        <i class="fas fa-calendar-alt"></i>
+
+                        <span>Masyarakat</span>
+
+                      </a>
+
+                    </li>
+                    <li class="nav-item">
+
+                      <a class="nav-link" href="laporan-kepuasan-m.php">
+
+                        <i class="fas fa-calendar-alt"></i>
+
+                        <span>Kepuasan Masyarakat</span>
 
                       </a>
 
@@ -573,6 +595,12 @@ $data_level = $_SESSION["role"];
                 <span>Dashboard</span>
               </li>
               <li>
+                <a href="t_status_m.php">
+                  <i class="fas fa-tv"></i>
+                  <span>Status Permohonan</span>
+                </a>
+              </li>
+              <li>
                 <a href="t_ulasan_m.php">
                   <i class="fas fa-tv"></i>
                   <span>Ulasan Pelayanan</span>
@@ -598,8 +626,9 @@ $data_level = $_SESSION["role"];
 
         <!-- sidebar-menu  -->
       </div>
-      <div class="sidebar-footer">
-        © Selamat Datang di Aplikasi Catatan Sipil - Banjarmasin<a target="_blank" rel="noopener noreferrer" href="#">
+      <div class="sidebar-footer" style="background-color :#4565e6;">
+        © Selamat Datang di Aplikasi Catatan Sipil - Banjarmasin
+        <a target="_blank" rel="noopener noreferrer" href="#">
         </a>
       </div>
     </nav>

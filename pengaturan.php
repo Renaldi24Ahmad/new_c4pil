@@ -1,4 +1,9 @@
-<?php include 'sidebar.php'; ?>
+<?php
+include 'sidebar.php';
+$query = mysqli_query($conn, "SELECT * FROM user WHERE id_user = '$uid'");
+$d = mysqli_fetch_assoc($query);
+?>
+
 <!-- isinya -->
 <?php
 if (isset($_POST['SimpanEdit'])) {
@@ -12,7 +17,7 @@ if (isset($_POST['SimpanEdit'])) {
 
     if (password_verify($pass, $cariuser['password'])) {
         if ($cariuser) {
-            $cekDataUpdate =  mysqli_query($conn, "UPDATE user SET username='$uname',
+            $cekDataUpdate =  mysqli_query($conn, "UPDATE user SET nik='$uname',
         nama_lengkap='$ntoko',role='$addr'
          WHERE id_user='$uid'") or die(mysqli_connect_error());
             if ($cekDataUpdate) {
@@ -93,17 +98,21 @@ if (isset($_POST['UpdatePass'])) {
                             <input name="nama_lengkap" type="text" class="form-control" value="<?php echo $nama_lengkap ?>" id="namatoko" placeholder="nama" required>
                         </div>
                         <div class="col-sm-6 col-md-6 mb-2">
-                            <label for="username">Username<span class="text-danger">*</span></label>
-                            <input name="username" type="text" class="form-control" value="<?php echo $username; ?>" id="username" placeholder="username" required>
+                            <label for="username">Nik<span class="text-danger">*</span></label>
+                            <input name="username" type="text" class="form-control" value="<?php echo $username; ?>" id="username" placeholder="username" disabled>
                         </div>
                         <div class="col-sm-6 col-md-6 mb-2">
-                            <label for="alamat">roles<span class="text-danger">*</span></label>
-                            <select name="roles" class="form-control" required>
+                            <label for="alamat">Roles<span class="text-danger">*</span></label>
+                            <select name="roles_display" class="form-control" disabled>
+                                <option value="Masyarakat" <?php echo ($d['role'] == 'Masyarakat') ? 'selected' : ''; ?>>Masyarakat</option>
                                 <option value="Karyawan Pelayanan" <?php echo ($d['role'] == 'Karyawan Pelayanan') ? 'selected' : ''; ?>>Karyawan Pelayanan</option>
                                 <option value="Kepala Bidang" <?php echo ($d['role'] == 'Kepala Bidang') ? 'selected' : ''; ?>>Kepala Bidang</option>
+                                <option value="admin" <?php echo ($d['role'] == 'admin') ? 'selected' : ''; ?>>Admin</option>
                             </select>
-                        </div>
 
+                            <!-- Hidden input untuk tetap mengirimkan data role saat submit -->
+                            <input type="hidden" name="roles" value="<?php echo htmlspecialchars($d['role']); ?>">
+                        </div>
                         <div class="col-sm-6 col-md-6 col-lg-6"></div>
                         <div class="col-sm-6 col-md-6 col-lg-6 text-right mt-3">
                             <div id="Ada1">

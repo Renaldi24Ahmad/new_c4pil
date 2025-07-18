@@ -26,7 +26,7 @@ include 'config.php'; // Koneksi ke database
     <?php
     $no = 1;
     $data_riwayat = mysqli_query($conn, "
-      SELECT rp.id_riwayat, rp.nomor_akta, rp.id_pemohon, rp.status, u.username, 
+      SELECT rp.id_riwayat, rp.nomor_akta, rp.id_pemohon, rp.status, u.nik, 
 
              COALESCE(a.nama_pemilik, b.nama_pemilik, c.nama_pemilik, d.nama_pemilik) AS nama_pemilik,
 
@@ -62,7 +62,7 @@ include 'config.php'; // Koneksi ke database
             <i class="fas fa-pencil-alt fa-xs mr-1"></i><?php echo $d['status']; ?>
           </button>
         </td>
-        <td><?php echo $d['username']; ?></td>
+        <td><?php echo $d['nik']; ?></td>
         <td>
           <button type="button" class="btn btn-primary btn-xs mr-1" data-toggle="modal" data-target="#EditRiwayat<?php echo $d['id_riwayat']; ?>">
             <i class="fas fa-pencil-alt fa-xs mr-1"></i>Edit
