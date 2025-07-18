@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 18 Jul 2025 pada 20.56
+-- Waktu pembuatan: 18 Jul 2025 pada 23.29
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.2.4
 
@@ -376,7 +376,7 @@ INSERT INTO `user` (`id_user`, `nik`, `password`, `nama_lengkap`, `role`, `logo`
 --
 
 CREATE TABLE `users` (
-  `id_users` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
   `nik` varchar(16) NOT NULL,
   `no_kk` varchar(16) NOT NULL,
   `nama_lengkap` varchar(100) NOT NULL,
@@ -386,15 +386,17 @@ CREATE TABLE `users` (
   `alamat` text DEFAULT NULL,
   `no_wa` varchar(15) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
-  `password` varchar(255) NOT NULL
+  `password` varchar(255) NOT NULL,
+  `role` varchar(255) NOT NULL,
+  `logo` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `users`
 --
 
-INSERT INTO `users` (`id_users`, `nik`, `no_kk`, `nama_lengkap`, `jk`, `tempat_lahir`, `tanggal_lahir`, `alamat`, `no_wa`, `email`, `password`) VALUES
-(1, '6371042708030001', '6371042908160005', 'Syah Renaldi Nur Ahmad', 'L', 'Banjarmasin', '2003-08-27', 'Jl. Simpang Gusti VI No.110 RT. 31', '087818479575', 'syahrenaldinur@gmail.com', '$2y$10$1MyM7SXs.6Tcxlo1KtpCs.FX18beypcaje2na95dopkxxrcqDcoB2');
+INSERT INTO `users` (`id_user`, `nik`, `no_kk`, `nama_lengkap`, `jk`, `tempat_lahir`, `tanggal_lahir`, `alamat`, `no_wa`, `email`, `password`, `role`, `logo`) VALUES
+(1, '6371042708030001', '6371042908160005', 'Syah Renaldi Nur Ahmad', 'L', 'Banjarmasin', '2003-08-27', 'Jl. Simpang Gusti VI No.110 RT. 31', '087818479575', 'syahrenaldinur@gmail.com', '$2y$10$1MyM7SXs.6Tcxlo1KtpCs.FX18beypcaje2na95dopkxxrcqDcoB2', 'admin', 'logo-capil-new.png');
 
 --
 -- Indexes for dumped tables
@@ -503,7 +505,7 @@ ALTER TABLE `user`
 -- Indeks untuk tabel `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`id_users`),
+  ADD PRIMARY KEY (`id_user`),
   ADD UNIQUE KEY `nik` (`nik`);
 
 --
@@ -574,7 +576,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_users` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
@@ -608,7 +610,7 @@ ALTER TABLE `akta_terbit`
 -- Ketidakleluasaan untuk tabel `notifikasi`
 --
 ALTER TABLE `notifikasi`
-  ADD CONSTRAINT `notifikasi_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `users` (`id_users`) ON DELETE CASCADE;
+  ADD CONSTRAINT `notifikasi_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `users` (`id_user`) ON DELETE CASCADE;
 
 --
 -- Ketidakleluasaan untuk tabel `pengambilan_akta`
@@ -620,7 +622,7 @@ ALTER TABLE `pengambilan_akta`
 -- Ketidakleluasaan untuk tabel `permohonan_akta`
 --
 ALTER TABLE `permohonan_akta`
-  ADD CONSTRAINT `permohonan_akta_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `users` (`id_users`) ON DELETE CASCADE;
+  ADD CONSTRAINT `permohonan_akta_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `users` (`id_user`) ON DELETE CASCADE;
 
 --
 -- Ketidakleluasaan untuk tabel `riwayat_pengambilan`

@@ -7,7 +7,7 @@
 </h1>
 <hr>
 <table class="table table-striped table-sm table-bordered dt-responsive nowrap" id="table" width="100%">
-  <thead>
+  <thead style="background-color: #4a83ffff;">
     <tr>
       <th>No</th>
       <th>Nama Pemohon</th>

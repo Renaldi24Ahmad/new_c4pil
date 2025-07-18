@@ -9,12 +9,19 @@ function ribuan($nilai)
   return number_format($nilai, 0, ',', '.');
 }
 $uid = $_SESSION['id_user'];
-$DataLogin = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM user WHERE id_user='$uid'"));
-$username = $DataLogin['nik'];
-$ididid_user = $DataLogin['id_user'];
+$DataLogin = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM users WHERE id_user='$uid'"));
+$nik = $DataLogin['nik'];
+$no_kk = $DataLogin['no_kk'];
 $nama_lengkap = $DataLogin['nama_lengkap'];
+$jk = $DataLogin['jk'];
+$tempat_lahir = $DataLogin['tempat_lahir'];
+$tanggal_lahir = $DataLogin['tanggal_lahir'];
+$alamat = $DataLogin['alamat'];
+$no_wa = $DataLogin['no_wa'];
+$email = $DataLogin['email'];
 $role = $DataLogin['role'];
 $logo = $DataLogin['logo'];
+$ididid_user = $DataLogin['id_user'];
 $data_level = $_SESSION["role"];
 ?>
 <!DOCTYPE html>
@@ -42,7 +49,7 @@ $data_level = $_SESSION["role"];
     <nav id="sidebar" class="sidebar-wrapper" style="width: 290px">
       <div class="sidebar-content">
         <div class="sidebar-brand">
-          <a href="riwayat.php"><i class="fas fa-building mr-1"></i><?php echo $toko ?>CAPIL</a>
+          <a href="riwayat.php"><i class="fas fa-building mr-1"></i><?php echo $toko ?>DISDUKCAPIL</a>
           <div id="close-sidebar">
             <i class="fas fa-times"></i>
           </div>
@@ -53,7 +60,9 @@ $data_level = $_SESSION["role"];
               alt="User picture">
           </div>
           <div class="user-info">
-            <span class="user-name"><?php echo $nama_lengkap ?>
+            <span class="user-name">APLIKASI
+            </span>
+            <span class="user-name">PERUBAHAN AKTA
             </span>
             <span class="user-role"><?php echo $role ?></span>
             <span class="user-status">
@@ -140,6 +149,30 @@ $data_level = $_SESSION["role"];
                 <a href="pemohon.php">
                   <i class="fas fa-archive"></i>
                   <span>Pemohon</span>
+                </a>
+              </li>
+              <li>
+                <a href="pengajuan_akta.php">
+                  <i class="fas fa-tv"></i>
+                  <span>Pengajuan Akta</span>
+                </a>
+              </li>
+              <li>
+                <a href="r_pengajuan.php">
+                  <i class="fas fa-tv"></i>
+                  <span>Pengajuan R</span>
+                </a>
+              </li>
+              <li>
+                <a href="pengambilan_akta.php">
+                  <i class="fas fa-tv"></i>
+                  <span>Pengambilan Akta</span>
+                </a>
+              </li>
+              <li>
+                <a href="r_pengambilan.php">
+                  <i class="fas fa-tv"></i>
+                  <span>Pengambilan R</span>
                 </a>
               </li>
               <li>
@@ -593,6 +626,12 @@ $data_level = $_SESSION["role"];
             <ul>
               <li class="header-menu">
                 <span>Dashboard</span>
+              </li>
+              <li>
+                <a href="pengajuan_akta.php">
+                  <i class="fas fa-tv"></i>
+                  <span>Pengajuan Akta</span>
+                </a>
               </li>
               <li>
                 <a href="t_status_m.php">

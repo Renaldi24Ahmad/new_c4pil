@@ -1,64 +1,84 @@
 <?php
 include 'sidebar.php';
-$query = mysqli_query($conn, "SELECT * FROM user WHERE id_user = '$uid'");
+$query = mysqli_query($conn, "SELECT * FROM users WHERE id_user = '$uid'");
 $d = mysqli_fetch_assoc($query);
 ?>
 
 <!-- isinya -->
 <?php
 if (isset($_POST['SimpanEdit'])) {
-    $uname = htmlspecialchars($_POST['username']);
-    $ntoko = htmlspecialchars($_POST['nama_lengkap']);
-    $addr = htmlspecialchars($_POST['roles']);
-    $pass = mysqli_real_escape_string($conn, $_POST['password']);
+    // Ambil dan sanitasi input
+    $nik            = htmlspecialchars($_POST['nik']);
+    $no_kk          = htmlspecialchars($_POST['no_kk']);
+    $nama_lengkap   = htmlspecialchars($_POST['nama_lengkap']);
+    $jk             = htmlspecialchars($_POST['jk']);
+    $tempat_lahir   = htmlspecialchars($_POST['tempat_lahir']);
+    $tanggal_lahir  = htmlspecialchars($_POST['tanggal_lahir']);
+    $alamat         = htmlspecialchars($_POST['alamat']);
+    $no_wa          = htmlspecialchars($_POST['no_wa']);
+    $email          = htmlspecialchars($_POST['email']);
+    $role           = htmlspecialchars($_POST['role']);
+    $logo           = htmlspecialchars($_POST['logo']);
+    $password       = mysqli_real_escape_string($conn, $_POST['password']);
 
-    $queryuser = mysqli_query($conn, "SELECT * FROM user WHERE id_user='$uid'");
-    $cariuser = mysqli_fetch_assoc($queryuser);
+    // Cek password user
+    $query = mysqli_query($conn, "SELECT * FROM users WHERE id_user='$uid'");
+    $user = mysqli_fetch_assoc($query);
 
-    if (password_verify($pass, $cariuser['password'])) {
-        if ($cariuser) {
-            $cekDataUpdate =  mysqli_query($conn, "UPDATE user SET nik='$uname',
-        nama_lengkap='$ntoko',role='$addr'
-         WHERE id_user='$uid'") or die(mysqli_connect_error());
-            if ($cekDataUpdate) {
-                echo '<script>history.go(-1);</script>';
-            } else {
-                echo '<script>alert("Gagal Edit Data");history.go(-1);</script>';
-            }
+    if ($user && password_verify($password, $user['password'])) {
+        // Lakukan update
+        $update = mysqli_query($conn, "UPDATE users SET 
+            nik='$nik',
+            no_kk='$no_kk',
+            nama_lengkap='$nama_lengkap',
+            jk='$jk',
+            tempat_lahir='$tempat_lahir',
+            tanggal_lahir='$tanggal_lahir',
+            alamat='$alamat',
+            no_wa='$no_wa',
+            email='$email',
+            role='$role',
+            logo='$logo'
+            WHERE id_user='$uid'
+        ");
+
+        if ($update) {
+            echo '<script>alert("Data berhasil diupdate.");history.go(-1);</script>';
+        } else {
+            echo '<script>alert("Gagal mengupdate data.");history.go(-1);</script>';
         }
     } else {
-        echo '<script>alert("Maaf password salah");history.go(-1);</script>';
+        echo '<script>alert("Password salah.");history.go(-1);</script>';
     }
 };
+
 
 if (isset($_POST['UpdatePass'])) {
-    $pass1 = mysqli_real_escape_string($conn, $_POST['pswd1']);
+    $old_pass = mysqli_real_escape_string($conn, $_POST['pswd1']);
+    $new_pass = $_POST['pswd2'];
+    $confirm_pass = $_POST['pswd3'];
 
-    $querypass = mysqli_query($conn, "SELECT * FROM user WHERE id_user='$uid'");
-    $caripass = mysqli_fetch_assoc($querypass);
+    $query = mysqli_query($conn, "SELECT * FROM users WHERE id_user='$uid'");
+    $user = mysqli_fetch_assoc($query);
 
-    if (password_verify($pass1, $caripass['password'])) {
-        if ($caripass) {
+    if ($user && password_verify($old_pass, $user['password'])) {
+        if ($new_pass === $confirm_pass) {
+            $hashed_pass = password_hash($new_pass, PASSWORD_DEFAULT);
+            $update = mysqli_query($conn, "UPDATE users SET password='$hashed_pass' WHERE id_user='$uid'");
 
-            $pass2 = $_POST['pswd2'];
-            $pass3 = password_hash($_POST['pswd3'], PASSWORD_DEFAULT);
-
-            if (password_verify($pass2, $pass3)) {
-                $cekPass =  mysqli_query($conn, "UPDATE user SET password='$pass3'
-                    WHERE id_user='$uid'") or die(mysqli_connect_error());
-                if ($cekPass) {
-                    echo '<script>alert("Password Berhasil di update");history.go(-1);</script>';
-                } else {
-                    echo '<script>alert("Gagal update password");history.go(-1);</script>';
-                }
+            if ($update) {
+                echo '<script>alert("Password berhasil diupdate.");history.go(-1);</script>';
             } else {
-                echo "<script>alert('Password yang Anda Masukan Tidak Sama');history.go(-1)</script>";
+                echo '<script>alert("Gagal mengupdate password.");history.go(-1);</script>';
             }
+        } else {
+            echo "<script>alert('Password baru dan konfirmasi tidak sama.');history.go(-1);</script>";
         }
     } else {
-        echo '<script>alert("Maaf password salah");history.go(-1);</script>';
+        echo '<script>alert("Password lama salah.");history.go(-1);</script>';
     }
 };
+
 ?>
 <h1 class="h3 mb-2">Account Settings</h1>
 <!-- Profile widget -->
@@ -72,8 +92,9 @@ if (isset($_POST['UpdatePass'])) {
                 </div>
             </form>
             <div class="media-body mb-5 text-white">
-                <h4 class="mt-0 mb-0"><?php echo $nama_lengkap ?></h4>
-                <p class="small mb-4">Aplikasi Capil</p>
+                <h4 class="mt-0 mb-0">APLIKASI PERUBAHAN AKTA</h4>
+                <p class="small mb-0"><?php echo $nik ?></p>
+                <p class="small mb-4"><?php echo $nama_lengkap ?></p>
             </div>
         </div>
     </div>
@@ -93,27 +114,70 @@ if (isset($_POST['UpdatePass'])) {
             <div id="PageProfile" class="tab-pane active">
                 <form method="post">
                     <div class="row">
-                        <div class="col-sm-6 col-md-6 mb-2">
-                            <label for="namatoko">Nama Lengkap<span class="text-danger">*</span></label>
-                            <input name="nama_lengkap" type="text" class="form-control" value="<?php echo $nama_lengkap ?>" id="namatoko" placeholder="nama" required>
+                        <!-- NIK -->
+                        <div class="col-md-6 mb-2">
+                            <label for="nik">NIK <span class="text-danger">*</span></label>
+                            <input name="nik" type="text" class="form-control" id="nik" value="<?php echo $nik ?? ''; ?>" required>
                         </div>
-                        <div class="col-sm-6 col-md-6 mb-2">
-                            <label for="username">Nik<span class="text-danger">*</span></label>
-                            <input name="username" type="text" class="form-control" value="<?php echo $username; ?>" id="username" placeholder="username" disabled>
+
+                        <!-- NO KK -->
+                        <div class="col-md-6 mb-2">
+                            <label for="no_kk">No KK <span class="text-danger">*</span></label>
+                            <input name="no_kk" type="text" class="form-control" id="no_kk" value="<?php echo $no_kk ?? ''; ?>" required>
                         </div>
-                        <div class="col-sm-6 col-md-6 mb-2">
-                            <label for="alamat">Roles<span class="text-danger">*</span></label>
-                            <select name="roles_display" class="form-control" disabled>
-                                <option value="Masyarakat" <?php echo ($d['role'] == 'Masyarakat') ? 'selected' : ''; ?>>Masyarakat</option>
-                                <option value="Karyawan Pelayanan" <?php echo ($d['role'] == 'Karyawan Pelayanan') ? 'selected' : ''; ?>>Karyawan Pelayanan</option>
-                                <option value="Kepala Bidang" <?php echo ($d['role'] == 'Kepala Bidang') ? 'selected' : ''; ?>>Kepala Bidang</option>
-                                <option value="admin" <?php echo ($d['role'] == 'admin') ? 'selected' : ''; ?>>Admin</option>
+
+                        <!-- NAMA LENGKAP -->
+                        <div class="col-md-6 mb-2">
+                            <label for="nama_lengkap">Nama Lengkap <span class="text-danger">*</span></label>
+                            <input name="nama_lengkap" type="text" class="form-control" id="nama_lengkap" value="<?php echo $nama_lengkap ?? ''; ?>" required>
+                        </div>
+
+                        <!-- JENIS KELAMIN -->
+                        <div class="col-md-6 mb-2">
+                            <label for="jk">Jenis Kelamin <span class="text-danger">*</span></label>
+                            <select name="jk" id="jk" class="form-control" required>
+                                <option value="">-- Pilih --</option>
+                                <option value="L" <?php if (($jk ?? '') == 'L') echo 'selected'; ?>>Laki-laki</option>
+                                <option value="P" <?php if (($jk ?? '') == 'P') echo 'selected'; ?>>Perempuan</option>
                             </select>
+                        </div>
+
+                        <!-- TEMPAT LAHIR -->
+                        <div class="col-md-6 mb-2">
+                            <label for="tempat_lahir">Tempat Lahir <span class="text-danger">*</span></label>
+                            <input name="tempat_lahir" type="text" class="form-control" id="tempat_lahir" value="<?php echo $tempat_lahir ?? ''; ?>" required>
+                        </div>
+
+                        <!-- TANGGAL LAHIR -->
+                        <div class="col-md-6 mb-2">
+                            <label for="tanggal_lahir">Tanggal Lahir <span class="text-danger">*</span></label>
+                            <input name="tanggal_lahir" type="date" class="form-control" id="tanggal_lahir" value="<?php echo $tanggal_lahir ?? ''; ?>" required>
+                        </div>
+
+                        <!-- ALAMAT -->
+                        <div class="col-md-12 mb-2">
+                            <label for="alamat">Alamat <span class="text-danger">*</span></label>
+                            <textarea name="alamat" class="form-control" id="alamat" rows="2" required><?php echo $alamat ?? ''; ?></textarea>
+                        </div>
+
+                        <!-- NO WA -->
+                        <div class="col-md-6 mb-2">
+                            <label for="no_wa">Nomor WhatsApp <span class="text-danger">*</span></label>
+                            <input name="no_wa" type="text" class="form-control" id="no_wa" value="<?php echo $no_wa ?? ''; ?>" required>
+                        </div>
+
+                        <!-- EMAIL -->
+                        <div class="col-md-6 mb-2">
+                            <label for="email">Email <span class="text-danger">*</span></label>
+                            <input name="email" type="email" class="form-control" id="email" value="<?php echo $email ?? ''; ?>" required>
+                        </div>
+                        <div class="col-sm-6 col-md-6 mb-2">
+
 
                             <!-- Hidden input untuk tetap mengirimkan data role saat submit -->
-                            <input type="hidden" name="roles" value="<?php echo htmlspecialchars($d['role']); ?>">
+                            <input type="hidden" name="role" value="<?php echo $role ?? ''; ?>">
+                            <input type="hidden" name="logo" value="<?php echo $logo ?? ''; ?>">
                         </div>
-                        <div class="col-sm-6 col-md-6 col-lg-6"></div>
                         <div class="col-sm-6 col-md-6 col-lg-6 text-right mt-3">
                             <div id="Ada1">
                                 <button type="button" class="btn btn-primary px-4" onclick="GetVerif()">Update</button>

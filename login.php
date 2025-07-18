@@ -12,7 +12,7 @@ if (isset($_POST['login'])) {
   $pass = mysqli_real_escape_string($conn, $_POST['password']);
 
   // Query untuk mengambil data user berdasarkan username
-  $queryuser = mysqli_query($conn, "SELECT * FROM user WHERE nik='$nik'");
+  $queryuser = mysqli_query($conn, "SELECT * FROM users WHERE nik='$nik'");
   $cariuser = mysqli_fetch_assoc($queryuser);
 
   // Verifikasi password
