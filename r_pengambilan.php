@@ -12,11 +12,13 @@ $query = mysqli_query($koneksi, "
 ");
 ?>
 
-<div class="container mt-4">
-    <h3>Daftar Pengambilan Akta</h3>
-    <table class="table table-bordered table-hover">
-        <thead class="thead-dark">
+<div class="">
+    <h1 class="h3 mb-0">Daftar Pengambilan Akta</h1>
+    <hr>
+    <table class="table table-striped table-sm table-bordered dt-responsive nowrap" id="table" width="100%">
+        <thead style="background-color: #4a83ffff;">
             <tr>
+                <th>No</th>
                 <th>Nama Pemohon</th>
                 <th>Jenis Akta</th>
                 <th>Nama Pengambil</th>
@@ -26,8 +28,12 @@ $query = mysqli_query($koneksi, "
             </tr>
         </thead>
         <tbody>
-            <?php while ($row = mysqli_fetch_assoc($query)) : ?>
+            <?php
+            $no = 1;
+            while ($row = mysqli_fetch_assoc($query)) :
+            ?>
                 <tr>
+                    <td><?php echo $no++; ?></td>
                     <td><?= htmlspecialchars($row['nama_lengkap']) ?></td>
                     <td><?= htmlspecialchars($row['jenis_akta']) ?></td>
                     <td><?= htmlspecialchars($row['nama_pengambil']) ?></td>

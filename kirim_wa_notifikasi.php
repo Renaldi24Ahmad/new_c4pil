@@ -2,7 +2,7 @@
 
 function kirim_wa($phone, $message)
 {
-    $token = "69c5o32UOcGqrlRkmbSXHkDCDF2WlQseq84fFlquzwVYaKcMBGgRMuY";
+    $token = "dDiIG1KzlOnLsTHiCj1GPAjNHUiLPPoRqN1UURFlf2BeGArQXzN16C3";
     $url = 'https://bdg.wablas.com/api/send-message';
 
     $data = [
@@ -32,7 +32,7 @@ function kirim_wa($phone, $message)
 }
 
 // Uji coba kirim WA
-$no_hp = "6285245564450"; // ← Ganti dengan nomor WA kamu
-$pesan = "Halo! Ini pesan tes dari localhost.";
+$no_hp = "6287777540612"; // ← Ganti dengan nomor WA kamu
+$pesan = "";
 
 kirim_wa($no_hp, $pesan);

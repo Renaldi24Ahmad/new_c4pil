@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 18 Jul 2025 pada 23.29
+-- Waktu pembuatan: 28 Jul 2025 pada 15.14
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.2.4
 
@@ -65,6 +65,28 @@ CREATE TABLE `akta_cu` (
 INSERT INTO `akta_cu` (`nomor_akta`, `nama_pemilik`, `jenis_akta`, `tanggal_terbit`, `id_keterangan`, `status`) VALUES
 ('6371-02122025-LU', 'Udin Sedunia', 'Kelahiran', '2025-02-10', 2, 'Belum Diambil'),
 ('6371-20022025-LT', 'Robyy', 'Kematian', '2025-02-20', 2, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `akta_new`
+--
+
+CREATE TABLE `akta_new` (
+  `nomor_akta` varchar(255) NOT NULL,
+  `id_permohonan` int(255) DEFAULT NULL,
+  `nama_pemilik` varchar(100) DEFAULT NULL,
+  `jenis_akta` varchar(100) DEFAULT NULL,
+  `tanggal_terbit` date DEFAULT NULL,
+  `id_keterangan` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `akta_new`
+--
+
+INSERT INTO `akta_new` (`nomor_akta`, `id_permohonan`, `nama_pemilik`, `jenis_akta`, `tanggal_terbit`, `id_keterangan`) VALUES
+('6371-28072025-LU', 17, 'Syah Renaldi Nur Ahmad', 'Kelahiran', '2025-07-28', 1);
 
 -- --------------------------------------------------------
 
@@ -284,6 +306,13 @@ CREATE TABLE `pengambilan_akta` (
   `waktu_pengambilan` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data untuk tabel `pengambilan_akta`
+--
+
+INSERT INTO `pengambilan_akta` (`id_pengambilan`, `id_permohonan`, `nama_pengambil`, `nik_pengambil`, `bukti_ktp_pengambil`, `waktu_pengambilan`) VALUES
+(6, 17, 'renaldi', '1111111111', 'uploads/1753654749_CCC.jpg', '2025-07-27 22:19:09');
+
 -- --------------------------------------------------------
 
 --
@@ -297,7 +326,7 @@ CREATE TABLE `permohonan_akta` (
   `catatan_perubahan` text NOT NULL,
   `file_ktp_pemohon` varchar(255) NOT NULL,
   `file_akta_lama` varchar(255) NOT NULL,
-  `status_permohonan` enum('Menunggu Verifikasi','Terverifikasi','Jadwal Ditetapkan','Datang ke Capil','Proses Pembuatan','Selesai','Sudah Diambil') DEFAULT 'Menunggu Verifikasi',
+  `status_permohonan` enum('Menunggu Verifikasi','Terverifikasi','Jadwal Ditetapkan','Datang ke Capil','Proses Pembuatan','Akta Selesai','Sudah Diambil','DI Tolak') DEFAULT 'Menunggu Verifikasi',
   `jadwal_kunjungan` date DEFAULT NULL,
   `waktu_kunjungan_mulai` time DEFAULT NULL,
   `waktu_kunjungan_selesai` time DEFAULT NULL,
@@ -305,6 +334,14 @@ CREATE TABLE `permohonan_akta` (
   `tanggal_pengajuan` timestamp NOT NULL DEFAULT current_timestamp(),
   `tanggal_selesai` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `permohonan_akta`
+--
+
+INSERT INTO `permohonan_akta` (`id_permohonan`, `id_user`, `jenis_akta`, `catatan_perubahan`, `file_ktp_pemohon`, `file_akta_lama`, `status_permohonan`, `jadwal_kunjungan`, `waktu_kunjungan_mulai`, `waktu_kunjungan_selesai`, `kode_pengambilan`, `tanggal_pengajuan`, `tanggal_selesai`) VALUES
+(17, 1, 'Kelahiran', 'nama', 'AAA.jpg', 'BBB.jpg', 'Proses Pembuatan', '2025-07-28', '08:00:00', '15:00:00', NULL, '2025-07-27 22:18:01', NULL),
+(18, 1, 'Kelahiran', 'tttl', 'AAA.jpg', 'BBB.jpg', 'Jadwal Ditetapkan', '2025-07-28', '08:00:00', '15:00:00', NULL, '2025-07-27 22:37:49', NULL);
 
 -- --------------------------------------------------------
 
@@ -396,7 +433,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id_user`, `nik`, `no_kk`, `nama_lengkap`, `jk`, `tempat_lahir`, `tanggal_lahir`, `alamat`, `no_wa`, `email`, `password`, `role`, `logo`) VALUES
-(1, '6371042708030001', '6371042908160005', 'Syah Renaldi Nur Ahmad', 'L', 'Banjarmasin', '2003-08-27', 'Jl. Simpang Gusti VI No.110 RT. 31', '087818479575', 'syahrenaldinur@gmail.com', '$2y$10$1MyM7SXs.6Tcxlo1KtpCs.FX18beypcaje2na95dopkxxrcqDcoB2', 'admin', 'logo-capil-new.png');
+(1, '6371042708030001', '6371042908160005', 'Syah Renaldi Nur Ahmad', 'L', 'Banjarmasin', '2003-08-27', 'Jl. Simpang Gusti VI No.110 RT. 31', '6287818479575', 'syahrenaldinur@gmail.com', '$2y$10$1MyM7SXs.6Tcxlo1KtpCs.FX18beypcaje2na95dopkxxrcqDcoB2', 'admin', 'logo-capil-new.png'),
+(2, '1111111111111111', '1111111111111111', 'udin', 'L', 'bjm', '2025-07-15', 'bjm', '6287818479575', 'budi@gmail.com', '$2y$10$UAFY1jHNh/ikONJFJGikMOgFHf4lct5CVd7G2riEbRewbVasbxae6', 'Masyarakat', 'foto-profile.png');
 
 --
 -- Indexes for dumped tables
@@ -414,6 +452,14 @@ ALTER TABLE `akta_b`
 --
 ALTER TABLE `akta_cu`
   ADD PRIMARY KEY (`nomor_akta`),
+  ADD KEY `id_keterangan` (`id_keterangan`);
+
+--
+-- Indeks untuk tabel `akta_new`
+--
+ALTER TABLE `akta_new`
+  ADD PRIMARY KEY (`nomor_akta`),
+  ADD UNIQUE KEY `id_permohonan` (`id_permohonan`),
   ADD KEY `id_keterangan` (`id_keterangan`);
 
 --
@@ -546,13 +592,13 @@ ALTER TABLE `pemohon`
 -- AUTO_INCREMENT untuk tabel `pengambilan_akta`
 --
 ALTER TABLE `pengambilan_akta`
-  MODIFY `id_pengambilan` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pengambilan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `permohonan_akta`
 --
 ALTER TABLE `permohonan_akta`
-  MODIFY `id_permohonan` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_permohonan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT untuk tabel `riwayat_pengambilan`
@@ -576,7 +622,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
@@ -593,6 +639,13 @@ ALTER TABLE `akta_b`
 --
 ALTER TABLE `akta_cu`
   ADD CONSTRAINT `akta_cu_ibfk_1` FOREIGN KEY (`id_keterangan`) REFERENCES `jenis_keterangan` (`id_keterangan`);
+
+--
+-- Ketidakleluasaan untuk tabel `akta_new`
+--
+ALTER TABLE `akta_new`
+  ADD CONSTRAINT `akta_new_ibfk_1` FOREIGN KEY (`id_keterangan`) REFERENCES `jenis_keterangan` (`id_keterangan`),
+  ADD CONSTRAINT `akta_new_ibfk_2` FOREIGN KEY (`id_permohonan`) REFERENCES `permohonan_akta` (`id_permohonan`);
 
 --
 -- Ketidakleluasaan untuk tabel `akta_pn`

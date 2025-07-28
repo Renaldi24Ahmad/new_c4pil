@@ -28,6 +28,7 @@ $data_level = $_SESSION["role"];
 <html>
 
 <head>
+
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -49,7 +50,7 @@ $data_level = $_SESSION["role"];
     <nav id="sidebar" class="sidebar-wrapper" style="width: 290px">
       <div class="sidebar-content">
         <div class="sidebar-brand">
-          <a href="riwayat.php"><i class="fas fa-building mr-1"></i><?php echo $toko ?>DISDUKCAPIL</a>
+          <a href="dashboard.php"><i class="fas fa-building mr-1"></i><?php echo $toko ?>DISDUKCAPIL</a>
           <div id="close-sidebar">
             <i class="fas fa-times"></i>
           </div>
@@ -78,9 +79,11 @@ $data_level = $_SESSION["role"];
           <div class="sidebar-menu">
             <ul>
               <li class="header-menu">
-                <span>Dashboard</span>
+                <a href="dashboard.php">
+                  <b>Dashboard</b>
+                </a>
               </li>
-              <li>
+              <!-- <li>
 
                 <a href="#aktaDropdown" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
 
@@ -144,11 +147,11 @@ $data_level = $_SESSION["role"];
 
                 </div>
 
-              </li>
+              </li> -->
               <li>
-                <a href="pemohon.php">
+                <a href="akta.php">
                   <i class="fas fa-archive"></i>
-                  <span>Pemohon</span>
+                  <span>Akta</span>
                 </a>
               </li>
               <li>
@@ -175,24 +178,24 @@ $data_level = $_SESSION["role"];
                   <span>Pengambilan R</span>
                 </a>
               </li>
-              <li>
+              <!-- <li>
                 <a href="riwayat.php">
                   <i class="fas fa-tv"></i>
                   <span>Permohonan Pengambilan</span>
                 </a>
-              </li>
+              </li> -->
               <li>
                 <a href="kepuasan.php">
                   <i class="fas fa-tv"></i>
                   <span>Kepuasan Masyarakat</span>
                 </a>
               </li>
-              <li>
+              <!-- <li>
                 <a href="masyarakat.php">
                   <i class="fas fa-tv"></i>
                   <span>Masyarakat</span>
                 </a>
-              </li>
+              </li> -->
               <li>
 
                 <a href="#reportsDropdown" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
@@ -252,7 +255,7 @@ $data_level = $_SESSION["role"];
                       </a>
 
                     </li>
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
 
                       <a class="nav-link" href="laporan-masyarakat.php">
 
@@ -262,7 +265,7 @@ $data_level = $_SESSION["role"];
 
                       </a>
 
-                    </li>
+                    </li> -->
                     <li class="nav-item">
 
                       <a class="nav-link" href="laporan-kepuasan-m.php">
@@ -285,7 +288,7 @@ $data_level = $_SESSION["role"];
                       </a>
 
                     </li>
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
 
                       <a class="nav-link" href="laporan-riwayat.php">
 
@@ -295,7 +298,7 @@ $data_level = $_SESSION["role"];
 
                       </a>
 
-                    </li>
+                    </li> -->
 
                   </ul>
 
