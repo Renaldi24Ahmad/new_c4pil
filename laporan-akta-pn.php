@@ -49,21 +49,23 @@ $tgl = date("d F Y");
     <thead>
       <tr>
         <th>No</th>
-        <th>Nomor Akta</th>
         <th>Nama Pemilik</th>
+        <th>Nomor Akta</th>
         <th>Jenis Akta</th>
         <th>Tanggal Terbit</th>
-        <th>Jenis Keterangan</th>
-        <th>Status</th>
+        <th>Keterangan</th>
       </tr>
     </thead>
     <tbody>
 
       <?php
       $no = 1;
-      $sql = $koneksi->query("SELECT p.nomor_akta, p.nama_pemilik, p.jenis_akta, p.tanggal_terbit, a.nama_keterangan, p.status 
-                              from akta_pn p 
-                              left join jenis_keterangan a on p.id_keterangan=a.id_keterangan  
+      $sql = $koneksi->query("SELECT * 
+FROM akta_new 
+LEFT JOIN jenis_keterangan 
+    ON akta_new.id_keterangan = jenis_keterangan.id_keterangan
+WHERE jenis_keterangan.nama_keterangan = 'Perubahan Akta (Pengadilan Negeri)'
+ORDER BY nomor_akta ASC
      ");
       while ($data = $sql->fetch_assoc()) {
       ?>
@@ -73,11 +75,12 @@ $tgl = date("d F Y");
             <?php echo $no++; ?>
           </td>
           <td>
-            <?php echo $data['nomor_akta']; ?>
-          </td>
-          <td>
             <?php echo $data['nama_pemilik']; ?>
           </td>
+          <td>
+            <?php echo $data['nomor_akta']; ?>
+          </td>
+
           <td>
             <?php echo $data['jenis_akta']; ?>
           </td>
@@ -87,9 +90,7 @@ $tgl = date("d F Y");
           <td>
             <?php echo $data['nama_keterangan']; ?>
           </td>
-          <td>
-            <?php echo $data['status']; ?>
-          </td>
+
 
 
         </tr>

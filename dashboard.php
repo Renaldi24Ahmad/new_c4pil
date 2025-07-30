@@ -104,13 +104,11 @@ $kp = $data['kp'];
 
 
 <!-- jQuery & Bootstrap Bundle -->
-<script type="module" src="https://esm.sh/ionicons@latest/loader"></script>
+<!-- <script type="module" src="https://esm.sh/ionicons@latest/loader"></script>
 <script nomodule src="https://esm.sh/ionicons@latest/loader"></script>
-
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE JS -->
-<script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script> -->
 
 <?php
 include 'footer.php';

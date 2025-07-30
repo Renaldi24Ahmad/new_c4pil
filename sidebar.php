@@ -151,19 +151,19 @@ $data_level = $_SESSION["role"];
               <li>
                 <a href="akta.php">
                   <i class="fas fa-archive"></i>
-                  <span>Akta</span>
+                  <span>Daftar Akta</span>
                 </a>
               </li>
               <li>
                 <a href="pengajuan_akta.php">
                   <i class="fas fa-tv"></i>
-                  <span>Pengajuan Akta</span>
+                  <span>Pengajuan Permohonan</span>
                 </a>
               </li>
               <li>
                 <a href="r_pengajuan.php">
                   <i class="fas fa-tv"></i>
-                  <span>Pengajuan R</span>
+                  <span>Daftar Pengajuan</span>
                 </a>
               </li>
               <li>
@@ -175,7 +175,7 @@ $data_level = $_SESSION["role"];
               <li>
                 <a href="r_pengambilan.php">
                   <i class="fas fa-tv"></i>
-                  <span>Pengambilan R</span>
+                  <span>Daftar Pengambilan</span>
                 </a>
               </li>
               <!-- <li>
@@ -187,7 +187,7 @@ $data_level = $_SESSION["role"];
               <li>
                 <a href="kepuasan.php">
                   <i class="fas fa-tv"></i>
-                  <span>Kepuasan Masyarakat</span>
+                  <span>Daftar Ulasan</span>
                 </a>
               </li>
               <!-- <li>
@@ -212,7 +212,7 @@ $data_level = $_SESSION["role"];
 
                     <li class="nav-item">
 
-                      <a class="nav-link" href="laporan-akta-terbit.php">
+                      <a class="nav-link" href="laporan-akta-terbit.php" target="_blank">
 
                         <i class="fas fa-calendar-alt"></i>
 
@@ -224,7 +224,7 @@ $data_level = $_SESSION["role"];
 
                     <li class="nav-item">
 
-                      <a class="nav-link" href="laporan-akta-cu.php">
+                      <a class="nav-link" href="laporan-akta-cu.php" target="_blank">
 
                         <i class="fas fa-calendar-alt"></i>
 
@@ -235,7 +235,7 @@ $data_level = $_SESSION["role"];
                     </li>
                     <li class="nav-item">
 
-                      <a class="nav-link" href="laporan-akta-b.php">
+                      <a class="nav-link" href="laporan-akta-b.php" target="_blank">
 
                         <i class="fas fa-calendar-alt"></i>
 
@@ -246,7 +246,7 @@ $data_level = $_SESSION["role"];
                     </li>
                     <li class="nav-item">
 
-                      <a class="nav-link" href="laporan-akta-pn.php">
+                      <a class="nav-link" href="laporan-akta-pn.php" target="_blank">
 
                         <i class="fas fa-calendar-alt"></i>
 
@@ -268,7 +268,40 @@ $data_level = $_SESSION["role"];
                     </li> -->
                     <li class="nav-item">
 
-                      <a class="nav-link" href="laporan-kepuasan-m.php">
+                      <a class="nav-link" href="l-permohonan.php" target="_blank">
+
+                        <i class="fas fa-calendar-alt"></i>
+
+                        <span>Permohonan</span>
+
+                      </a>
+
+                    </li>
+                    <li class="nav-item">
+
+                      <a class="nav-link" href="l-pengambilan.php" target="_blank">
+
+                        <i class="fas fa-calendar-alt"></i>
+
+                        <span>Pengambilan</span>
+
+                      </a>
+
+                    </li>
+                    <li class="nav-item">
+
+                      <a class="nav-link" href="laporan-rekap.php" target="_blank">
+
+                        <i class="fas fa-calendar-alt"></i>
+
+                        <span>Rekap Bulanan</span>
+
+                      </a>
+
+                    </li>
+                    <li class="nav-item">
+
+                      <a class="nav-link" href="laporan-kepuasan-m.php" target="_blank">
 
                         <i class="fas fa-calendar-alt"></i>
 
@@ -277,17 +310,7 @@ $data_level = $_SESSION["role"];
                       </a>
 
                     </li>
-                    <li class="nav-item">
 
-                      <a class="nav-link" href="laporan-pemohon.php">
-
-                        <i class="fas fa-calendar-alt"></i>
-
-                        <span>Pemohon</span>
-
-                      </a>
-
-                    </li>
                     <!-- <li class="nav-item">
 
                       <a class="nav-link" href="laporan-riwayat.php">
@@ -331,91 +354,42 @@ $data_level = $_SESSION["role"];
           <div class="sidebar-menu">
             <ul>
               <li class="header-menu">
-                <span>Dashboard</span>
-              </li>
-              <li>
-
-                <a href="#aktaDropdown" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-
-                  <i class="fas fa-file-alt"></i>
-
-                  <span>Akta</span>
-
+                <a href="dashboard.php">
+                  <b>Dashboard</b>
                 </a>
-
-                <div class="collapse" id="aktaDropdown">
-
-                  <ul class="nav flex-column ml-3">
-
-                    <li class="nav-item">
-
-                      <a class="nav-link" href="akta_terbit.php">
-
-                        <i class="fas fa-calendar-alt"></i>
-
-                        <span>Terbit</span>
-
-                      </a>
-
-                    </li>
-
-                    <li class="nav-item">
-
-                      <a class="nav-link" href="akta_cu.php">
-
-                        <i class="fas fa-calendar-alt"></i>
-
-                        <span>Cetak Ulang</span>
-
-                      </a>
-
-                    </li>
-                    <li class="nav-item">
-
-                      <a class="nav-link" href="akta_pn.php">
-
-                        <i class="fas fa-calendar-alt"></i>
-
-                        <span>Perubahan Akta (PN)</span>
-
-                      </a>
-
-                    </li>
-                    <li class="nav-item">
-
-                      <a class="nav-link" href="akta_b.php">
-
-                        <i class="fas fa-calendar-alt"></i>
-
-                        <span>Perubahan Akta (Biasa)</span>
-
-                      </a>
-
-                    </li>
-
-                  </ul>
-
-                </div>
-
               </li>
+
+
               <li>
-                <a href="pemohon.php">
+                <a href="akta.php">
                   <i class="fas fa-archive"></i>
-                  <span>Pemohon</span>
+                  <span>Daftar Akta</span>
                 </a>
               </li>
               <li>
-                <a href="riwayat.php">
+                <a href="r_pengajuan.php">
                   <i class="fas fa-tv"></i>
-                  <span>Permohonan Pengambilan</span>
+                  <span>Daftar Pengajuan</span>
                 </a>
               </li>
-              <!-- <li>
-                <a href="akuns.php">
+              <li>
+                <a href="pengambilan_akta.php">
                   <i class="fa fa-chart-line"></i>
-                  <span>Akun</span>
+                  <span>Pengambilan Akta</span>
                 </a>
-              </li> -->
+              </li>
+              <li>
+                <a href="r_pengambilan.php">
+                  <i class="fa fa-chart-line"></i>
+                  <span>Daftar Pengambilan</span>
+                </a>
+              </li>
+              <li>
+                <a href="kepuasan.php">
+                  <i class="fa fa-chart-line"></i>
+                  <span>Daftar Ulasan</span>
+                </a>
+              </li>
               <li>
                 <a href="pengaturan.php">
                   <i class="fa fa-cog"></i>
@@ -436,73 +410,13 @@ $data_level = $_SESSION["role"];
           <div class="sidebar-menu">
             <ul>
               <li class="header-menu">
-                <span>Dashboard</span>
+                <a href="dashboard.php">
+                  <b>Dashboard</b>
+                </a>
               </li>
               <li>
 
-                <a href="#aktaDropdown" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-
-                  <i class="fas fa-file-alt"></i>
-
-                  <span>Akta</span>
-
-                </a>
-
-                <div class="collapse" id="aktaDropdown">
-
-                  <ul class="nav flex-column ml-3">
-
-                    <li class="nav-item">
-
-                      <a class="nav-link" href="akta_terbit_kabid.php">
-
-                        <i class="fas fa-calendar-alt"></i>
-
-                        <span>Terbit</span>
-
-                      </a>
-
-                    </li>
-
-                    <li class="nav-item">
-
-                      <a class="nav-link" href="akta_cu_kabid.php">
-
-                        <i class="fas fa-calendar-alt"></i>
-
-                        <span>Cetak Ulang</span>
-
-                      </a>
-
-                    </li>
-                    <li class="nav-item">
-
-                      <a class="nav-link" href="akta_pn_kabid.php">
-
-                        <i class="fas fa-calendar-alt"></i>
-
-                        <span>Perubahan Akta (PN)</span>
-
-                      </a>
-
-                    </li>
-                    <li class="nav-item">
-
-                      <a class="nav-link" href="akta_b_kabid.php">
-
-                        <i class="fas fa-calendar-alt"></i>
-
-                        <span>Perubahan Akta (Biasa)</span>
-
-                      </a>
-
-                    </li>
-
-                  </ul>
-
-                </div>
-
-              </li>
+                <!-- </li>
               <li>
                 <a href="pemohon_kabid.php">
                   <i class="fas fa-archive"></i>
@@ -514,8 +428,8 @@ $data_level = $_SESSION["role"];
                   <i class="fas fa-tv"></i>
                   <span>Permohonan Pengambilan</span>
                 </a>
-              </li>
-              <!-- <li>
+              </li> -->
+                <!-- <li>
                 <a href="akuns.php">
                   <i class="fa fa-chart-line"></i>
                   <span>Akun</span>
@@ -537,7 +451,7 @@ $data_level = $_SESSION["role"];
 
                     <li class="nav-item">
 
-                      <a class="nav-link" href="laporan-akta-terbit.php">
+                      <a class="nav-link" href="laporan-akta-terbit.php" target="_blank">
 
                         <i class="fas fa-calendar-alt"></i>
 
@@ -549,7 +463,7 @@ $data_level = $_SESSION["role"];
 
                     <li class="nav-item">
 
-                      <a class="nav-link" href="laporan-akta-cu.php">
+                      <a class="nav-link" href="laporan-akta-cu.php" target="_blank">
 
                         <i class="fas fa-calendar-alt"></i>
 
@@ -560,7 +474,7 @@ $data_level = $_SESSION["role"];
                     </li>
                     <li class="nav-item">
 
-                      <a class="nav-link" href="laporan-akta-b.php">
+                      <a class="nav-link" href="laporan-akta-b.php" target="_blank">
 
                         <i class="fas fa-calendar-alt"></i>
 
@@ -571,7 +485,7 @@ $data_level = $_SESSION["role"];
                     </li>
                     <li class="nav-item">
 
-                      <a class="nav-link" href="laporan-akta-pn.php">
+                      <a class="nav-link" href="laporan-akta-pn.php" target="_blank">
 
                         <i class="fas fa-calendar-alt"></i>
 
@@ -580,18 +494,63 @@ $data_level = $_SESSION["role"];
                       </a>
 
                     </li>
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
 
-                      <a class="nav-link" href="laporan-pemohon.php">
+                      <a class="nav-link" href="laporan-masyarakat.php">
 
                         <i class="fas fa-calendar-alt"></i>
 
-                        <span>Pemohon</span>
+                        <span>Masyarakat</span>
+
+                      </a>
+
+                    </li> -->
+                    <li class="nav-item">
+
+                      <a class="nav-link" href="l-permohonan.php" target="_blank">
+
+                        <i class="fas fa-calendar-alt"></i>
+
+                        <span>Permohonan</span>
 
                       </a>
 
                     </li>
                     <li class="nav-item">
+
+                      <a class="nav-link" href="l-pengambilan.php" target="_blank">
+
+                        <i class="fas fa-calendar-alt"></i>
+
+                        <span>Pengambilan</span>
+
+                      </a>
+
+                    </li>
+                    <li class="nav-item">
+
+                      <a class="nav-link" href="laporan-rekap.php" target="_blank">
+
+                        <i class="fas fa-calendar-alt"></i>
+
+                        <span>Rekap Bulanan</span>
+
+                      </a>
+
+                    </li>
+                    <li class="nav-item">
+
+                      <a class="nav-link" href="laporan-kepuasan-m.php" target="_blank">
+
+                        <i class="fas fa-calendar-alt"></i>
+
+                        <span>Kepuasan Masyarakat</span>
+
+                      </a>
+
+                    </li>
+
+                    <!-- <li class="nav-item">
 
                       <a class="nav-link" href="laporan-riwayat.php">
 
@@ -601,7 +560,7 @@ $data_level = $_SESSION["role"];
 
                       </a>
 
-                    </li>
+                    </li> -->
 
                   </ul>
 
@@ -628,7 +587,9 @@ $data_level = $_SESSION["role"];
           <div class="sidebar-menu">
             <ul>
               <li class="header-menu">
-                <span>Dashboard</span>
+                <a href="dashboard.php">
+                  <b>Dashboard</b>
+                </a>
               </li>
               <li>
                 <a href="pengajuan_akta.php">
@@ -637,7 +598,7 @@ $data_level = $_SESSION["role"];
                 </a>
               </li>
               <li>
-                <a href="t_status_m.php">
+                <a href="m_pengajuan.php">
                   <i class="fas fa-tv"></i>
                   <span>Status Permohonan</span>
                 </a>
